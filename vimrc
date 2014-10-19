@@ -4,7 +4,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Vundle Begin
+"Vundle 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 filetype off
@@ -13,21 +13,26 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 "let vundle manage vundle
 Plugin 'gmarik/Vundle.vim'
-
-"Plugin 'klen/python-mode'
+"my own vim color and syntax
+Plugin 'monojo/vim-basic'
+Plugin 'monojo/cscope-map'
+Plugin 'klen/python-mode'
+Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+"Plugin 'Lokaltog/vim-powerline', {'rtp': 'powerline/bindings/vim/'}
 
 call vundle#end()
 filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Options Begin
+" Options 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let b:did_ftplugin = 1
 
 "set term=ansi
 
 "load color scheme mine.vim
-colo mine
+colorscheme mine
 
 " Folding mode
 set fdm=syntax
@@ -39,7 +44,10 @@ set termencoding=utf-8
 set number 			"Turn line number on
 
 "set comments=sl:/*,mb:\ *,elx:\ */ 		"intelligent comments
-set tabstop=4    	"tab 4 spaces
+autocmd FileType * set tabstop=4    	"tab 4 spaces
+"for python, real python use spaces
+autocmd FileType python set tabstop=4|set expandtab|set shiftwidth=4|set softtabstop=4  
+
 set autoindent
 set backspace=2		" Allows insert-mode backspace to work as one expects
 set cindent
@@ -47,7 +55,12 @@ set cinkeys=0{,0},:,!^F,o,O,e	" See "cinkeys"; this stops "#" from indenting
 set fileformat=unix	" No crazy CR/LF
 set listchars=tab:\ \ ,trail:· " If you do ":set list", shows trailing spaces
 set mouse=			" I don't like the mouse in VIM
-set nobackup		" Don't use a backup file (also see writebackup)
+
+"Disable backup, swap files
+set nobackup	
+set nowritebackup
+set noswapfile
+
 set hlsearch  		" Hightlight the search	
 set incsearch  		"incremental searching
 set nojoinspaces	" One space after a "." rather than 2
@@ -122,23 +135,25 @@ inoremap <s-tab> <c-r>=InsertTabWrapper("back")<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""python-mode""""""""
+let g:pymode = 1
+let g:pymode_folding = 1
 "python-mode
 "auto complete
-"let g:pytmode_rope = 1
+let g:pytmode_rope = 1
 ""Documentation
-"let g:pymode_doc = 1
-"let g:pymode_doc_key = 'K'
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
 ""Linting
-"let g:pymode_lint = 1
-"let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
 ""Auto check on save
-"let g:pymode_lint_write = 1
-""Support virtualenv
-"let g:pymode_virtualenv = 1
+let g:pymode_lint_write = 1
+"Support virtualenv
+let g:pymode_virtualenv = 1
 ""syntax highlighting
-"let g:pymode_syntax = 1
-"let g:pymode_syntax_all =1
-"let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-"let g:pymode_syntax_space_errors = g:pymode_syntax_all
-"
-"let g:pymode_folding = 1
+let g:pymode_syntax = 1
+let g:pymode_syntax_all =1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all

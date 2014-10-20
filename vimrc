@@ -16,10 +16,28 @@ Plugin 'gmarik/Vundle.vim'
 "my own vim color and syntax
 Plugin 'monojo/vim-basic'
 Plugin 'monojo/cscope-map'
+"python ide
 Plugin 'klen/python-mode'
+"ultimate auto complete tool
 Plugin 'Valloric/YouCompleteMe'
-"Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-"Plugin 'Lokaltog/vim-powerline', {'rtp': 'powerline/bindings/vim/'}
+"cool status line
+Plugin 'bling/vim-airline'
+Plugin 'bling/vim-bufferline'"
+"syntax check
+Plugin 'scrooloose/syntastic'
+"session management
+Plugin 'xolox/vim-session'
+Plugin 'xolox/vim-misc'
+
+Plugin 'kien/ctrlp.vim'
+"vim indent guide
+Plugin 'nathanaelkane/vim-indent-guides'
+"snippte
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'majutsushi/tagbar'
+Plugin 'edkolev/promptline.vim'
+"Plugin 'edkolev/tmuxline.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -27,9 +45,6 @@ filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Options 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let b:did_ftplugin = 1
-
-"set term=ansi
 
 "load color scheme mine.vim
 colorscheme mine
@@ -38,6 +53,7 @@ colorscheme mine
 set fdm=syntax
 
 " Encoding
+scriptencoding utf-8
 set encoding=utf-8
 set fenc=utf-8
 set termencoding=utf-8
@@ -77,6 +93,7 @@ set writebackup		" Write temporary backup files in case we crash
 set ignorecase 		" Ingore the case sensitive
 set formatoptions=tcroql "Set text and comment formatting 
 
+let mapleader="," " map leader to comma
 syn sync fromstart " Increase the highlighting accuracy
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -131,6 +148,16 @@ nnoremap <c-k> <c-w>k
 inoremap <tab> <c-r>=InsertTabWrapper("fwd")<cr>
 inoremap <s-tab> <c-r>=InsertTabWrapper("back")<cr>
 
+"switch buffer
+nmap <leader>1 :b1<cr>
+nmap <leader>2 :b2<cr>
+nmap <leader>3 :b3<cr>
+nmap <leader>4 :b4<cr>
+nmap <leader>5 :b5<cr>
+nmap <leader>6 :b6<cr>
+nmap <leader>7 :b7<cr>
+nmap <leader>8 :b8<cr>
+nmap <leader>9 :b9<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
@@ -141,19 +168,82 @@ let g:pymode = 1
 let g:pymode_folding = 1
 "python-mode
 "auto complete
-let g:pytmode_rope = 1
+let g:pymode_rope = 0
 ""Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
 ""Linting
-let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_lint = 0
+"let g:pymode_lint_checker = "pyflakes,pep8"
 ""Auto check on save
-let g:pymode_lint_write = 1
+let g:pymode_lint_write = 0
 "Support virtualenv
 let g:pymode_virtualenv = 1
+
 ""syntax highlighting
 let g:pymode_syntax = 1
 let g:pymode_syntax_all =1
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+""""""""vim-airline""""""""
+"make it work
+set laststatus=2
+"enable extention support
+let g:airline_enable_syntastic = 1
+let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#whitespace#symbol = '!'
+let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing' ]
+
+let g:airline#extensions#tagbar#enabled = 1
+"short leave insert mode
+set ttimeoutlen=50
+
+"bufferline
+let g:airline#extensions#bufferline#enabled = 1
+let g:airline#extensions#bufferline#overwrite_variables = 1
+"make buuferline on status line
+let g:bufferline_echo = 0
+  autocmd VimEnter *
+    \ let &statusline='%{bufferline#refresh_status()}'
+      \ .bufferline#get_status_string()
+
+"use powerline style fonts
+let g:airline_powerline_fonts = 1
+"let g:airline_theme = 'dark'
+let g:airline#extensions#tmuxline#enabled = 1
+"let g:tmuxline_theme = 'zenburn'
+
+"let g:airline#extensions#tabline#enabled = 0
+"let g:airline#extensions#tabline#buffer_idx_mode = 1
+"nmap <leader>1 <Plug>AirlineSelectTab1
+"nmap <leader>2 <Plug>AirlineSelectTab2
+"nmap <leader>3 <Plug>AirlineSelectTab3
+"nmap <leader>4 <Plug>AirlineSelectTab4
+"nmap <leader>5 <Plug>AirlineSelectTab5
+"nmap <leader>6 <Plug>AirlineSelectTab6
+"nmap <leader>7 <Plug>AirlineSelectTab7
+"nmap <leader>8 <Plug>AirlineSelectTab8
+"nmap <leader>9 <Plug>AirlineSelectTab9
+
+
+""""""""YCM""""""""
+"solve the ycm Value Error problem
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py' 
+
+""""""""Session""""""""
+"let g:session_autosave = 'no'
+let g:session_autotsave = 'yes'
+let g:session_autoload = 'no'
+
+""""""""utltisnips""""""""
+let g:UltiSnipsExpandTrigger = "<leader>t"
+let g:UltiSnipsJumpForwardTrigger = "<leader>f"
+let g:UltiSnipsJumpBackwardTrigger = "<leader>b"
+
+""""""""indent guide""""""""
+let g:indent_guides_enable_on_vim_startup = 0
+let g:indent_guides_guide_size = 2
+
+"""""""Tagbar""""""""
+nmap <F8> :TagbarToggle<CR>

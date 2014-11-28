@@ -70,7 +70,8 @@ set cindent
 set cinkeys=0{,0},:,!^F,o,O,e	" See "cinkeys"; this stops "#" from indenting
 set fileformat=unix	" No crazy CR/LF
 set listchars=tab:\ \ ,trail:· " If you do ":set list", shows trailing spaces
-set mouse=			" I don't like the mouse in VIM
+set mouse=n			" I don't like the mouse in VIM
+set mousefocus 
 
 "Disable backup, swap files
 set nobackup	
@@ -145,19 +146,21 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 
 "Tab to auto completion
-inoremap <tab> <c-r>=InsertTabWrapper("fwd")<cr>
-inoremap <s-tab> <c-r>=InsertTabWrapper("back")<cr>
+"inoremap <tab> <c-r>=InsertTabWrapper("fwd")<cr>
+"inoremap <s-tab> <c-r>=InsertTabWrapper("back")<cr>
 
 "switch buffer
-nmap <leader>1 :b1<cr>
-nmap <leader>2 :b2<cr>
-nmap <leader>3 :b3<cr>
-nmap <leader>4 :b4<cr>
-nmap <leader>5 :b5<cr>
-nmap <leader>6 :b6<cr>
-nmap <leader>7 :b7<cr>
-nmap <leader>8 :b8<cr>
-nmap <leader>9 :b9<cr>
+"nmap <leader>1 :b1<cr>
+"nmap <leader>2 :b2<cr>
+"nmap <leader>3 :b3<cr>
+"nmap <leader>4 :b4<cr>
+"nmap <leader>5 :b5<cr>
+"nmap <leader>6 :b6<cr>
+"nmap <leader>7 :b7<cr>
+"nmap <leader>8 :b8<cr>
+"nmap <leader>9 :b9<cr>
+"nmap <leader>b :bp<CR>
+"nmap <leader>f :bn<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
@@ -191,7 +194,7 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 set laststatus=2
 "enable extention support
 let g:airline_enable_syntastic = 1
-let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#symbol = '!'
 let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing' ]
 
@@ -211,21 +214,22 @@ let g:bufferline_echo = 0
 "use powerline style fonts
 let g:airline_powerline_fonts = 1
 "let g:airline_theme = 'dark'
-let g:airline#extensions#tmuxline#enabled = 1
+"let g:airline#extensions#tmuxline#enabled = 1
 "let g:tmuxline_theme = 'zenburn'
 
-"let g:airline#extensions#tabline#enabled = 0
-"let g:airline#extensions#tabline#buffer_idx_mode = 1
-"nmap <leader>1 <Plug>AirlineSelectTab1
-"nmap <leader>2 <Plug>AirlineSelectTab2
-"nmap <leader>3 <Plug>AirlineSelectTab3
-"nmap <leader>4 <Plug>AirlineSelectTab4
-"nmap <leader>5 <Plug>AirlineSelectTab5
-"nmap <leader>6 <Plug>AirlineSelectTab6
-"nmap <leader>7 <Plug>AirlineSelectTab7
-"nmap <leader>8 <Plug>AirlineSelectTab8
-"nmap <leader>9 <Plug>AirlineSelectTab9
-
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+nmap <leader>1 1gt 
+nmap <leader>2 2gt 
+nmap <leader>3 3gt 
+nmap <leader>4 4gt 
+nmap <leader>5 5gt 
+nmap <leader>6 6gt 
+nmap <leader>7 7gt 
+nmap <leader>8 8gt 
+nmap <leader>9 9gt 
 
 """"""""YCM""""""""
 "solve the ycm Value Error problem
@@ -242,8 +246,19 @@ let g:UltiSnipsJumpForwardTrigger = "<leader>f"
 let g:UltiSnipsJumpBackwardTrigger = "<leader>b"
 
 """"""""indent guide""""""""
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_guide_size = 2
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_color_change_percent = 5
+hi IndentGuidesEven ctermbg=lightgrey
 
 """""""Tagbar""""""""
 nmap <F8> :TagbarToggle<CR>
+"""""""CtrlP"""""""""
+"dont know why tab also trigger this
+nmap <c-i> :CtrlPBufTagAll<CR>
+""""""""promptline""""""""
+let g:promptline_preset = {
+	\'a' : [ promptline#slices#host() ],
+	\'x' : [ promptline#slices#cwd() ],
+    \'y' : [ promptline#slices#vcs_branch() ],
+    \'warn' : [ promptline#slices#last_exit_code() ]}

@@ -236,8 +236,8 @@ nmap <leader>9 9gt
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py' 
 
 """"""""Session""""""""
-"let g:session_autosave = 'no'
-let g:session_autotsave = 'yes'
+let g:session_autosave = 'no'
+"let g:session_autotsave = 'yes'
 let g:session_autoload = 'no'
 
 """"""""utltisnips""""""""

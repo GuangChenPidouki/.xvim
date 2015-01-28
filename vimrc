@@ -1,9 +1,4 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" My vimrc  
-" Modified from cduan.vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Vundle 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
@@ -38,6 +33,9 @@ Plugin 'honza/vim-snippets'
 Plugin 'majutsushi/tagbar'
 Plugin 'edkolev/promptline.vim'
 "Plugin 'edkolev/tmuxline.vim'
+"
+"fugitive
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 filetype plugin indent on

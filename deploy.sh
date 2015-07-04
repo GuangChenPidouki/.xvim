@@ -4,7 +4,7 @@
 if [ -d "$HOME/.vim/" ]; then
 	echo ".vim exist"
 else
-	ehco "no .vim dir, creating it"
+	echo "no .vim dir, creating it"
 	mkdir $HOME/.vim
 fi
 
